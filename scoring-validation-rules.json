@@ -1,0 +1,98 @@
+{
+  "scoreValidation": {
+    "ranges": {
+      "score": {
+        "minimum": 0,
+        "maximum": 100,
+        "description": "Overall compliance score percentage"
+      },
+      "sectionScore": {
+        "minimum": 0,
+        "maximum": 100,
+        "description": "Individual section compliance score"
+      },
+      "requirementScore": {
+        "minimum": 0,
+        "maximum": 100,
+        "description": "Individual requirement compliance score"
+      },
+      "points": {
+        "minimum": 0,
+        "maximum": 1000,
+        "description": "Total points for template"
+      }
+    },
+    "thresholds": {
+      "excellent": { "minimum": 95, "grade": "A", "color": "#10b981" },
+      "good": { "minimum": 85, "maximum": 94, "grade": "B", "color": "#3b82f6" },
+      "satisfactory": { "minimum": 70, "maximum": 84, "grade": "C", "color": "#f59e0b" },
+      "needsImprovement": { "minimum": 50, "maximum": 69, "grade": "D", "color": "#ef4444" },
+      "critical": { "maximum": 49, "grade": "F", "color": "#dc2626" }
+    }
+  },
+  "algorithms": {
+    "weighted_average": {
+      "name": "Weighted Average",
+      "description": "Calculates score based on requirement point weights",
+      "weights": {
+        "critical": 1.5,
+        "high": 1.2,
+        "medium": 1.0,
+        "low": 0.8
+      }
+    },
+    "critical_requirements": {
+      "name": "Critical Requirements Focus",
+      "description": "Prioritizes critical requirements in scoring",
+      "criticalWeight": 2.0,
+      "mandatoryWeight": 1.8
+    },
+    "risk_adjusted": {
+      "name": "Risk-Adjusted Scoring",
+      "description": "Adjusts scores based on risk levels and state multipliers",
+      "riskMultipliers": {
+        "critical": 1.5,
+        "high": 1.3,
+        "medium": 1.0,
+        "low": 0.7
+      }
+    },
+    "automated_checks": {
+      "name": "Automated Checks",
+      "description": "Scores based on automated verification results",
+      "automatedWeight": 1.2,
+      "manualWeight": 1.0
+    }
+  },
+  "consistency": {
+    "maxVariance": 15,
+    "algorithmsToCompare": ["weighted_average", "critical_requirements", "risk_adjusted"],
+    "consistencyThreshold": 0.8,
+    "outlierDetection": true
+  },
+  "audit": {
+    "logAllCalculations": true,
+    "logInputData": true,
+    "logIntermediates": true,
+    "logFinalScores": true,
+    "retentionDays": 2555,
+    "includeUserContext": true,
+    "includeTimestamp": true,
+    "includeAlgorithm": true
+  },
+  "calibration": {
+    "enabled": true,
+    "baselineScore": 75,
+    "adjustmentFactor": 0.05,
+    "calibrationPeriod": 30,
+    "minDataPoints": 10,
+    "maxAdjustment": 10
+  },
+  "history": {
+    "trackScoreChanges": true,
+    "trackTrends": true,
+    "trackComparisons": true,
+    "retentionDays": 1825,
+    "aggregationLevels": ["daily", "weekly", "monthly"]
+  }
+}

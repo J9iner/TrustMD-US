@@ -1,0 +1,121 @@
+{
+  "stateTiers": {
+    "tier1": {
+      "description": "Highest Regulatory Burden",
+      "multiplier": 1.4,
+      "states": ["CA", "NY", "FL", "TX", "IL"],
+      "characteristics": [
+        "Complex healthcare regulations",
+        "Multiple state agencies",
+        "High compliance costs",
+        "Frequent regulatory changes"
+      ],
+      "avgRequirements": 150,
+      "regulatoryComplexity": "very_high"
+    },
+    "tier2": {
+      "description": "High Regulatory Burden",
+      "multiplier": 1.3,
+      "states": ["PA", "OH", "GA", "NC", "MI", "NJ", "VA", "WA", "AZ", "MA", "TN", "IN", "MO", "MD", "WI"],
+      "characteristics": [
+        "Significant state oversight",
+        "Multiple compliance frameworks",
+        "Moderate to high costs",
+        "Regular updates required"
+      ],
+      "avgRequirements": 120,
+      "regulatoryComplexity": "high"
+    },
+    "tier3": {
+      "description": "Moderate Regulatory Burden",
+      "multiplier": 1.2,
+      "states": ["CO", "MN", "SC", "AL", "LA", "KY", "OK", "OR", "CT", "UT", "IA", "NV", "AR", "MS", "KS"],
+      "characteristics": [
+        "Standard state regulations",
+        "Single primary agency",
+        "Moderate compliance costs",
+        "Periodic updates"
+      ],
+      "avgRequirements": 90,
+      "regulatoryComplexity": "moderate"
+    },
+    "tier4": {
+      "description": "Lower Regulatory Burden",
+      "multiplier": 1.0,
+      "states": ["NM", "NE", "WV", "ID", "HI", "NH", "ME", "MT", "RI", "DE", "SD", "ND", "AK", "VT", "WY"],
+      "characteristics": [
+        "Simplified regulations",
+        "Limited state oversight",
+        "Lower compliance costs",
+        "Infrequent changes"
+      ],
+      "avgRequirements": 60,
+      "regulatoryComplexity": "low"
+    }
+  },
+  "validation": {
+    "requiredFields": [
+      "id",
+      "name", 
+      "requirements",
+      "getRequirements",
+      "validateCompliance",
+      "getMultiplier"
+    ],
+    "allowedFileTypes": [".js"],
+    "maxFileSize": 50000,
+    "securityChecks": {
+      "codeInjection": true,
+      "fileSystemAccess": false,
+      "networkAccess": false,
+      "evalUsage": false
+    },
+    "integrity": {
+      "checksumValidation": true,
+      "signatureValidation": false,
+      "tamperDetection": true
+    }
+  },
+  "security": {
+    "accessControl": {
+      "enabled": true,
+      "defaultPermission": "read",
+      "adminRoles": ["admin", "compliance_admin"],
+      "editorRoles": ["compliance_officer", "template_editor"],
+      "viewerRoles": ["user", "viewer"]
+    },
+    "auditLogging": {
+      "enabled": true,
+      "logFileAccess": true,
+      "logValidation": true,
+      "logSecurityEvents": true,
+      "retentionDays": 2555
+    },
+    "rateLimiting": {
+      "enabled": true,
+      "maxRequestsPerMinute": 100,
+      "maxFileSizePerMinute": 1000000
+    }
+  },
+  "caching": {
+    "enabled": true,
+    "ttl": 3600,
+    "maxCacheSize": 100,
+    "cacheKeyPrefix": "state_template_",
+    "invalidationStrategy": "ttl"
+  },
+  "updates": {
+    "autoUpdate": false,
+    "updateCheckInterval": 86400,
+    "backupBeforeUpdate": true,
+    "rollbackEnabled": true,
+    "notificationRequired": true
+  },
+  "analytics": {
+    "enabled": true,
+    "trackUsage": true,
+    "trackPerformance": true,
+    "trackErrors": true,
+    "aggregationInterval": 3600
+  }
+}

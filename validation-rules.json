@@ -1,0 +1,180 @@
+{
+  "validationRules": {
+    "text": {
+      "minLength": 2,
+      "maxLength": 255,
+      "required": true,
+      "trimWhitespace": true,
+      "preventEmpty": true
+    },
+    "email": {
+      "required": true,
+      "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+      "trimWhitespace": true,
+      "preventEmpty": true
+    },
+    "password": {
+      "minLength": 12,
+      "maxLength": 128,
+      "required": true,
+      "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]",
+      "preventEmpty": true
+    },
+    "documentTitle": {
+      "minLength": 3,
+      "maxLength": 200,
+      "required": true,
+      "trimWhitespace": true,
+      "preventEmpty": true,
+      "preventOnlySpecialChars": true
+    },
+    "description": {
+      "minLength": 10,
+      "maxLength": 2000,
+      "required": false,
+      "trimWhitespace": true,
+      "preventEmpty": true
+    },
+    "notes": {
+      "minLength": 5,
+      "maxLength": 1000,
+      "required": false,
+      "trimWhitespace": true,
+      "preventEmpty": true
+    },
+    "practiceName": {
+      "minLength": 2,
+      "maxLength": 100,
+      "required": true,
+      "trimWhitespace": true,
+      "preventEmpty": true
+    },
+    "providerCount": {
+      "min": 1,
+      "max": 1000,
+      "required": true,
+      "type": "number"
+    },
+    "staffCount": {
+      "min": 1,
+      "max": 10000,
+      "required": true,
+      "type": "number"
+    },
+    "patientVolume": {
+      "min": 1,
+      "max": 100000,
+      "required": true,
+      "type": "number"
+    },
+    "locations": {
+      "min": 1,
+      "max": 1000,
+      "required": true,
+      "type": "number"
+    }
+  },
+  "securityPatterns": {
+    "scriptInjection": "<script\\b[^<]*(?:(?!<\\/script>)<[^<]*)*<\\/script>",
+    "sqlInjection": "(\\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|UNION|SCRIPT)\\b)",
+    "xssPatterns": [
+      "javascript:",
+      "on\\w+\\s*=",
+      "<iframe",
+      "<object",
+      "<embed",
+      "<script",
+      "<applet",
+      "<meta",
+      "<link",
+      "<style",
+      "<form",
+      "<input",
+      "<img",
+      "<svg",
+      "<video",
+      "<audio",
+      "onload\\s*=",
+      "onerror\\s*=",
+      "onmouseover\\s*=",
+      "onfocus\\s*=",
+      "onblur\\s*=",
+      "onchange\\s*=",
+      "onsubmit\\s*=",
+      "onclick\\s*=",
+      "ondblclick\\s*=",
+      "onkeydown\\s*=",
+      "onkeyup\\s*=",
+      "onkeypress\\s*=",
+      "&#x",
+      "&#\\d{1,5};",
+      "%3c",
+      "%3e",
+      "%3cscript",
+      "expression\\s*\\(",
+      "@import",
+      "data:",
+      "vbscript:",
+      "file:",
+      "ftp:",
+      "on\\w+\\s*\\(",
+      "eval\\s*\\(",
+      "settimeout\\s*\\(",
+      "setinterval\\s*\\(",
+      "behavior\\s*:",
+      "binding\\s*:",
+      "angular\\s*\\(",
+      "react\\s*\\(",
+      "vue\\s*\\(",
+      "<[\\s]*script[\\s]*>",
+      "<[\\s]*iframe[\\s]*>",
+      "<[\\s]*object[\\s]*>"
+    ],
+    "excessiveWhitespace": "^\\s+|\\s{2,}|\\s+$",
+    "repeatedChars": "(.)\\1{4,}",
+    "controlChars": "[\\x00-\\x1F\\x7F]"
+  },
+  "phiValidationRules": {
+    "documentContent": {
+      "maxPHIRiskScore": 0.7,
+      "maxConfidenceScore": 0.8,
+      "requireExplicitConsent": true,
+      "allowedDocumentTypes": [
+        "policies",
+        "training_records",
+        "consent_forms",
+        "certificates",
+        "accreditation_documents",
+        "audit_reports",
+        "compliance_manuals",
+        "procedures",
+        "guidelines",
+        "protocols",
+        "standards"
+      ]
+    },
+    "documentFilename": {
+      "preventPatientIdentifiers": true,
+      "preventMedicalTerms": true,
+      "allowedExtensions": [".pdf", ".doc", ".docx", ".txt", ".rtf", ".xls", ".xlsx", ".ppt", ".pptx"],
+      "maxFilenameLength": 255
+    }
+  },
+  "rateLimiting": {
+    "userCreation": {
+      "maxAttempts": 10,
+      "windowMs": 3600000,
+      "keyPrefix": "user_creation"
+    },
+    "apiCalls": {
+      "maxRequests": 1000,
+      "windowMs": 3600000,
+      "keyPrefix": "api_calls"
+    }
+  },
+  "csrfProtection": {
+    "tokenLength": 64,
+    "tokenExpiry": 3600000,
+    "storageKey": "csrf-token"
+  }
+}

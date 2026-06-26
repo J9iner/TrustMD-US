@@ -1,0 +1,247 @@
+{
+  "databaseSecurity": {
+    "encryption": {
+      "enabled": true,
+      "algorithm": "aes-256-gcm",
+      "keyRotation": {
+        "enabled": true,
+        "interval": 90,
+        "retentionPeriod": 180
+      },
+      "sensitiveColumns": [
+        "users.email",
+        "users.phone",
+        "users.name",
+        "consistency_issues.title",
+        "consistency_issues.description",
+        "compliance_templates.content",
+        "compliance_templates.requirements",
+        "audit_logs.details",
+        "documents.content"
+      ],
+      "encryptionKeys": {
+        "current": "env:DB_ENCRYPTION_KEY_CURRENT",
+        "previous": "env:DB_ENCRYPTION_KEY_PREVIOUS",
+        "rotationEnabled": true
+      }
+    },
+    "rowLevelSecurity": {
+      "enabled": true,
+      "tenantIsolation": {
+        "enabled": true,
+        "tenantContextFunction": "current_setting('app.current_tenant')",
+        "tables": [
+          "users",
+          "documents",
+          "compliance_templates",
+          "audit_logs",
+          "consistency_issues",
+          "evidence_vault",
+          "risk_assessments",
+          "compliance_reports"
+        ]
+      },
+      "policies": {
+        "tenantRead": "Users can read their own tenant data",
+        "tenantWrite": "Users can write their own tenant data",
+        "adminOverride": "System admins can access all tenant data",
+        "serviceAccount": "Service accounts have cross-tenant access"
+      }
+    },
+    "backup": {
+      "enabled": true,
+      "strategy": "incremental",
+      "schedule": {
+        "fullBackup": "0 2 * * 0",
+        "incrementalBackup": "0 2 * * 1-6",
+        "retention": {
+          "daily": 30,
+          "weekly": 12,
+          "monthly": 24,
+          "yearly": 7
+        }
+      },
+      "encryption": {
+        "enabled": true,
+        "algorithm": "aes-256-gcm",
+        "keyManagement": "env:BACKUP_ENCRYPTION_KEY"
+      },
+      "storage": {
+        "type": "s3",
+        "bucket": "env:BACKUP_BUCKET",
+        "region": "env:BACKUP_REGION",
+        "encryption": true
+      },
+      "validation": {
+        "enabled": true,
+        "checksumVerification": true,
+        "restoreTesting": true,
+        "testSchedule": "0 3 * * 0"
+      }
+    },
+    "ssl": {
+      "enabled": true,
+      "minVersion": "TLSv1.2",
+      "cipherSuites": [
+        "TLS_AES_256_GCM_SHA384",
+        "TLS_CHACHA20_POLY1305_SHA256",
+        "TLS_AES_128_GCM_SHA256"
+      ],
+      "certificateValidation": true,
+      "hsts": {
+        "enabled": true,
+        "maxAge": 31536000,
+        "includeSubdomains": true,
+        "preload": true
+      }
+    },
+    "connectionPool": {
+      "enabled": true,
+      "maxConnections": 100,
+      "minConnections": 10,
+      "idleTimeout": 30000,
+      "connectionTimeout": 10000,
+      "maxLifetime": 3600000,
+      "healthCheck": {
+        "enabled": true,
+        "interval": 30000,
+        "timeout": 5000
+      }
+    },
+    "monitoring": {
+      "enabled": true,
+      "metrics": [
+        "connectionCount",
+        "queryDuration",
+        "errorRate",
+        "deadlockCount",
+        "cacheHitRate",
+        "backupStatus"
+      ],
+      "alerts": {
+        "connectionThreshold": 80,
+        "queryDurationThreshold": 1000,
+        "errorRateThreshold": 5,
+        "deadlockThreshold": 1
+      }
+    }
+  },
+  "rbacSecurity": {
+    "rowLevelSecurity": {
+      "enabled": true,
+      "tables": [
+        "roles",
+        "permissions",
+        "user_roles",
+        "role_permissions"
+      ],
+      "policies": {
+        "tenantRoleAccess": "Users can access roles within their tenant",
+        "roleHierarchy": "Role hierarchy enforcement",
+        "permissionValidation": "Permission assignment validation"
+      }
+    },
+    "roleValidation": {
+      "enabled": true,
+      "maxRolesPerUser": 10,
+      "roleHierarchy": {
+        "super_admin": 100,
+        "admin": 80,
+        "manager": 60,
+        "supervisor": 40,
+        "user": 20,
+        "viewer": 10
+      },
+      "expiration": {
+        "enabled": true,
+        "defaultDuration": 365,
+        "maxDuration": 1095,
+        "warningPeriod": 30
+      }
+    },
+    "permissionCache": {
+      "enabled": true,
+      "ttl": 300,
+      "maxSize": 10000,
+      "invalidationStrategy": "eventual",
+      "cacheKey": "user_permissions_{userId}_{tenantId}"
+    }
+  },
+  "templateSecurity": {
+    "encryption": {
+      "enabled": true,
+      "algorithm": "aes-256-gcm",
+      "encryptedColumns": [
+        "content",
+        "requirements",
+        "scoring_rules",
+        "validation_rules"
+      ]
+    },
+    "accessControl": {
+      "enabled": true,
+      "defaultPermission": "read",
+      "rolePermissions": {
+        "admin": ["read", "write", "delete", "share"],
+        "manager": ["read", "write", "share"],
+        "user": ["read"],
+        "viewer": ["read"]
+      }
+    },
+    "validation": {
+      "enabled": true,
+      "schemaValidation": true,
+      "contentValidation": true,
+      "integrityCheck": true,
+      "checksumAlgorithm": "sha256"
+    }
+  },
+  "migration": {
+    "enabled": true,
+    "versioning": {
+      "enabled": true,
+      "table": "schema_migrations",
+      "column": "version",
+      "appliedAt": "applied_at"
+    },
+    "rollback": {
+      "enabled": true,
+      "backupBeforeMigration": true,
+      "maxRollbackVersions": 10
+    },
+    "validation": {
+      "enabled": true,
+      "preMigrationChecks": true,
+      "postMigrationChecks": true,
+      "dataIntegrityChecks": true
+    }
+  },
+  "performance": {
+    "monitoring": {
+      "enabled": true,
+      "metrics": [
+        "queryTime",
+        "connectionPool",
+        "cacheHitRate",
+        "memoryUsage",
+        "cpuUsage"
+      ],
+      "sampling": {
+        "enabled": true,
+        "rate": 0.1
+      }
+    },
+    "thresholds": {
+      "queryTime": 1000,
+      "connectionPool": 80,
+      "cacheHitRate": 90,
+      "memoryUsage": 80,
+      "cpuUsage": 70
+    },
+    "alerts": {
+      "enabled": true,
+      "channels": ["email", "slack", "webhook"],
+      "cooldown": 300
+    }
+  }
+}

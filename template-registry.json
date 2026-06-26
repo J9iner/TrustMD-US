@@ -1,0 +1,200 @@
+{
+  "federalTemplates": [
+    {
+      "id": "hipaa-federal",
+      "name": "HIPAA Compliance",
+      "category": "federal",
+      "description": "Health Insurance Portability and Accountability Act",
+      "isActive": true,
+      "priority": "high",
+      "complianceFrameworks": ["HIPAA", "HITECH"],
+      "estimatedRequirements": 85,
+      "lastUpdated": "2024-01-15T00:00:00Z",
+      "version": "1.2.0",
+      "tags": ["privacy", "security", "healthcare"],
+      "dependencies": [],
+      "riskLevel": "critical"
+    },
+    {
+      "id": "dea-federal",
+      "name": "DEA Compliance",
+      "category": "federal",
+      "description": "Drug Enforcement Administration regulations",
+      "isActive": true,
+      "priority": "high",
+      "complianceFrameworks": ["DEA", "CSA"],
+      "estimatedRequirements": 62,
+      "lastUpdated": "2024-01-10T00:00:00Z",
+      "version": "1.1.0",
+      "tags": ["controlled-substances", "pharmacy", "prescriptions"],
+      "dependencies": ["hipaa-federal"],
+      "riskLevel": "high"
+    },
+    {
+      "id": "osha-federal",
+      "name": "OSHA Compliance",
+      "category": "federal",
+      "description": "Occupational Safety and Health Administration",
+      "isActive": true,
+      "priority": "medium",
+      "complianceFrameworks": ["OSHA"],
+      "estimatedRequirements": 45,
+      "lastUpdated": "2024-01-08T00:00:00Z",
+      "version": "1.0.0",
+      "tags": ["workplace-safety", "employee-health", "regulations"],
+      "dependencies": [],
+      "riskLevel": "medium"
+    },
+    {
+      "id": "cms-federal",
+      "name": "CMS Compliance",
+      "category": "federal",
+      "description": "Centers for Medicare & Medicaid Services",
+      "isActive": true,
+      "priority": "high",
+      "complianceFrameworks": ["CMS", "Medicare", "Medicaid"],
+      "estimatedRequirements": 78,
+      "lastUpdated": "2024-01-12T00:00:00Z",
+      "version": "1.3.0",
+      "tags": ["medicare", "medicaid", "billing", "reimbursement"],
+      "dependencies": ["hipaa-federal"],
+      "riskLevel": "high"
+    },
+    {
+      "id": "hitech-federal",
+      "name": "HITECH Act Compliance",
+      "category": "federal",
+      "description": "Health Information Technology for Economic and Clinical Health",
+      "isActive": true,
+      "priority": "medium",
+      "complianceFrameworks": ["HITECH", "HIPAA"],
+      "estimatedRequirements": 38,
+      "lastUpdated": "2024-01-05T00:00:00Z",
+      "version": "1.0.0",
+      "tags": ["health-it", "electronic-records", "meaningful-use"],
+      "dependencies": ["hipaa-federal"],
+      "riskLevel": "medium"
+    }
+  ],
+  "specialtyTemplates": [
+    {
+      "id": "cardiology-compliance",
+      "name": "Cardiology Compliance",
+      "category": "specialty",
+      "description": "Cardiology-specific compliance requirements",
+      "isActive": true,
+      "priority": "medium",
+      "complianceFrameworks": ["ACC", "AHA"],
+      "estimatedRequirements": 52,
+      "lastUpdated": "2024-01-18T00:00:00Z",
+      "version": "1.1.0",
+      "tags": ["cardiology", "heart", "cardiovascular"],
+      "dependencies": ["hipaa-federal", "cms-federal"],
+      "riskLevel": "medium"
+    },
+    {
+      "id": "radiology-compliance",
+      "name": "Radiology Compliance",
+      "category": "specialty",
+      "description": "Radiology-specific compliance and safety requirements",
+      "isActive": true,
+      "priority": "medium",
+      "complianceFrameworks": ["ACR", "NRC"],
+      "estimatedRequirements": 48,
+      "lastUpdated": "2024-01-16T00:00:00Z",
+      "version": "1.0.0",
+      "tags": ["radiology", "imaging", "radiation-safety"],
+      "dependencies": ["hipaa-federal", "osha-federal"],
+      "riskLevel": "medium"
+    },
+    {
+      "id": "pediatrics-compliance",
+      "name": "Pediatrics Compliance",
+      "category": "specialty",
+      "description": "Pediatric-specific compliance requirements",
+      "isActive": true,
+      "priority": "medium",
+      "complianceFrameworks": ["AAP", "CMS"],
+      "estimatedRequirements": 44,
+      "lastUpdated": "2024-01-14T00:00:00Z",
+      "version": "1.0.0",
+      "tags": ["pediatrics", "children", "pediatric-care"],
+      "dependencies": ["hipaa-federal", "cms-federal"],
+      "riskLevel": "medium"
+    }
+  ],
+  "customTemplates": [
+    {
+      "id": "telehealth-compliance",
+      "name": "Telehealth Compliance",
+      "category": "custom",
+      "description": "Telehealth and remote care compliance requirements",
+      "isActive": true,
+      "priority": "high",
+      "complianceFrameworks": ["HIPAA", "FTC", "FDA"],
+      "estimatedRequirements": 58,
+      "lastUpdated": "2024-01-20T00:00:00Z",
+      "version": "1.2.0",
+      "tags": ["telehealth", "remote-care", "virtual-visits"],
+      "dependencies": ["hipaa-federal", "cms-federal"],
+      "riskLevel": "high"
+    },
+    {
+      "id": "mental-health-compliance",
+      "name": "Mental Health Compliance",
+      "category": "custom",
+      "description": "Mental health and behavioral health compliance",
+      "isActive": true,
+      "priority": "medium",
+      "complianceFrameworks": ["HIPAA", "42 CFR Part 2"],
+      "estimatedRequirements": 41,
+      "lastUpdated": "2024-01-17T00:00:00Z",
+      "version": "1.0.0",
+      "tags": ["mental-health", "behavioral-health", "psychiatry"],
+      "dependencies": ["hipaa-federal"],
+      "riskLevel": "high"
+    }
+  ],
+  "templateCategories": {
+    "federal": {
+      "name": "Federal Compliance",
+      "description": "Federal regulations and compliance requirements",
+      "icon": "federal",
+      "color": "#1e40af",
+      "priority": 1
+    },
+    "state": {
+      "name": "State Compliance",
+      "description": "State-specific regulations and requirements",
+      "icon": "state",
+      "color": "#059669",
+      "priority": 2
+    },
+    "specialty": {
+      "name": "Specialty Compliance",
+      "description": "Medical specialty-specific requirements",
+      "icon": "specialty",
+      "color": "#7c3aed",
+      "priority": 3
+    },
+    "custom": {
+      "name": "Custom Templates",
+      "description": "Custom and specialized compliance templates",
+      "icon": "custom",
+      "color": "#dc2626",
+      "priority": 4
+    }
+  },
+  "configuration": {
+    "enableStateTemplates": true,
+    "enableSpecialtyTemplates": true,
+    "enableCustomTemplates": true,
+    "defaultTemplatePriority": "medium",
+    "maxTemplatesPerCategory": 50,
+    "cacheTemplates": true,
+    "cacheTTL": 3600,
+    "validateTemplates": true,
+    "enableAnalytics": true,
+    "enableVersioning": true
+  }
+}

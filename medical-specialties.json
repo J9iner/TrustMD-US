@@ -1,0 +1,364 @@
+{
+  "medicalSpecialties": {
+    "primary_care": {
+      "family_medicine": {
+        "name": "Family Medicine",
+        "multiplier": 0.8,
+        "category": "primary_care",
+        "description": "Comprehensive primary care for all ages",
+        "typicalServices": ["preventive_care", "chronic_disease_management", "pediatric_care", "geriatric_care"],
+        "regulatoryRequirements": ["basic_medical_license", "cme_50_hours", "malpractice_insurance"]
+      },
+      "internal_medicine": {
+        "name": "Internal Medicine",
+        "multiplier": 0.8,
+        "category": "primary_care",
+        "description": "Adult primary care with focus on complex medical conditions",
+        "typicalServices": ["adult_primary_care", "complex_disease_management", "preventive_services"],
+        "regulatoryRequirements": ["board_certification", "cme_50_hours", "hospital_privileges"]
+      },
+      "pediatrics": {
+        "name": "Pediatrics",
+        "multiplier": 0.7,
+        "category": "primary_care",
+        "description": "Medical care for infants, children, and adolescents",
+        "typicalServices": ["pediatric_primary_care", "vaccinations", "developmental_screening", "newborn_care"],
+        "regulatoryRequirements": ["pediatric_license", "cme_40_hours", "child_abuse_clearance"]
+      },
+      "geriatrics": {
+        "name": "Geriatrics",
+        "multiplier": 0.9,
+        "category": "primary_care",
+        "description": "Specialized care for elderly patients",
+        "typicalServices": ["geriatric_assessment", "chronic_disease_management", "palliative_care", "fall_prevention"],
+        "regulatoryRequirements": ["geriatric_certification", "cme_50_hours", "elder_abuse_training"]
+      },
+      "general_practice": {
+        "name": "General Practice",
+        "multiplier": 0.8,
+        "category": "primary_care",
+        "description": "Broad primary care practice serving diverse patient populations",
+        "typicalServices": ["primary_care", "minor_procedures", "preventive_services", "health_screening"],
+        "regulatoryRequirements": ["medical_license", "cme_50_hours", "basic_facility_standards"]
+      }
+    },
+    "medical_specialties": {
+      "cardiology": {
+        "name": "Cardiology",
+        "multiplier": 1.1,
+        "category": "medical_specialties",
+        "description": "Diagnosis and treatment of heart and cardiovascular conditions",
+        "typicalServices": ["cardiac_catheterization", "echocardiography", "stress_testing", "cardiac_rehab"],
+        "regulatoryRequirements": ["cardiology_fellowship", "board_certification", "cme_60_hours", "advanced_cardiac_equipment"]
+      },
+      "dermatology": {
+        "name": "Dermatology",
+        "multiplier": 0.7,
+        "category": "medical_specialties",
+        "description": "Diagnosis and treatment of skin, hair, and nail conditions",
+        "typicalServices": ["dermatologic_surgery", "cosmetic_procedures", "skin_cancer_screening", "dermatopathology"],
+        "regulatoryRequirements": ["dermatology_residency", "board_certification", "cme_40_hours", "procedural_privileges"]
+      },
+      "endocrinology": {
+        "name": "Endocrinology",
+        "multiplier": 0.9,
+        "category": "medical_specialties",
+        "description": "Treatment of hormonal and metabolic disorders",
+        "typicalServices": ["diabetes_management", "thyroid_disorders", "hormone_therapy", "metabolic_testing"],
+        "regulatoryRequirements": ["endocrinology_fellowship", "board_certification", "cme_50_hours", "laboratory_directorship"]
+      },
+      "gastroenterology": {
+        "name": "Gastroenterology",
+        "multiplier": 1.0,
+        "category": "medical_specialties",
+        "description": "Diagnosis and treatment of digestive system disorders",
+        "typicalServices": ["endoscopy", "colonoscopy", "liver_disease_management", "gi_procedures"],
+        "regulatoryRequirements": ["gi_fellowship", "board_certification", "cme_50_hours", "endoscopy_certification"]
+      },
+      "nephrology": {
+        "name": "Nephrology",
+        "multiplier": 1.1,
+        "category": "medical_specialties",
+        "description": "Treatment of kidney diseases and hypertension",
+        "typicalServices": ["dialysis", "kidney_transplant", "hypertension_management", "renal_biopsy"],
+        "regulatoryRequirements": ["nephrology_fellowship", "board_certification", "cme_60_hours", "dialysis_center_affiliation"]
+      },
+      "pulmonology": {
+        "name": "Pulmonology",
+        "multiplier": 1.0,
+        "category": "medical_specialties",
+        "description": "Treatment of respiratory system diseases",
+        "typicalServices": ["pulmonary_function_testing", "bronchoscopy", "sleep_medicine", "respiratory_therapy"],
+        "regulatoryRequirements": ["pulmonology_fellowship", "board_certification", "cme_50_hours", "icu_privileges"]
+      },
+      "rheumatology": {
+        "name": "Rheumatology",
+        "multiplier": 0.9,
+        "category": "medical_specialties",
+        "description": "Treatment of autoimmune and inflammatory conditions",
+        "typicalServices": ["autoimmune_disease_management", "infusion_therapy", "joint_injections", "rheumatic_disease_care"],
+        "regulatoryRequirements": ["rheumatology_fellowship", "board_certification", "cme_50_hours", "infusion_center_privileges"]
+      },
+      "infectious_disease": {
+        "name": "Infectious Disease",
+        "multiplier": 1.0,
+        "category": "medical_specialties",
+        "description": "Treatment of infectious diseases and infection control",
+        "typicalServices": ["infection_control", "antibiotic_therapy", "travel_medicine", "infectious_disease_consultation"],
+        "regulatoryRequirements": ["infectious_disease_fellowship", "board_certification", "cme_50_hours", "infection_control_certification"]
+      }
+    },
+    "surgical_specialties": {
+      "general_surgery": {
+        "name": "General Surgery",
+        "multiplier": 1.2,
+        "category": "surgical_specialties",
+        "description": "Broad surgical practice covering multiple surgical procedures",
+        "typicalServices": ["abdominal_surgery", "endoscopic_procedures", "trauma_surgery", "surgical_critical_care"],
+        "regulatoryRequirements": ["surgical_residency", "board_certification", "cme_60_hours", "surgical_privileges", "trauma_certification"]
+      },
+      "orthopedic_surgery": {
+        "name": "Orthopedic Surgery",
+        "multiplier": 1.1,
+        "category": "surgical_specialties",
+        "description": "Treatment of musculoskeletal system conditions",
+        "typicalServices": ["joint_replacement", "fracture_care", "sports_medicine", "orthopedic_surgery"],
+        "regulatoryRequirements": ["orthopedic_fellowship", "board_certification", "cme_60_hours", "surgical_privileges"]
+      },
+      "neurosurgery": {
+        "name": "Neurosurgery",
+        "multiplier": 1.3,
+        "category": "surgical_specialties",
+        "description": "Surgical treatment of nervous system disorders",
+        "typicalServices": ["brain_surgery", "spine_surgery", "neuro_critical_care", "stereotactic_procedures"],
+        "regulatoryRequirements": ["neurosurgery_residency", "board_certification", "cme_80_hours", "neurosurgical_privileges"]
+      },
+      "cardiothoracic_surgery": {
+        "name": "Cardiothoracic Surgery",
+        "multiplier": 1.4,
+        "category": "surgical_specialties",
+        "description": "Surgical treatment of heart and chest conditions",
+        "typicalServices": ["heart_surgery", "lung_surgery", "transplant_surgery", "cardiac_critical_care"],
+        "regulatoryRequirements": ["cardiothoracic_fellowship", "board_certification", "cme_80_hours", "cardiac_surgery_privileges"]
+      }
+    },
+    "womens_health": {
+      "obstetrics_gynecology": {
+        "name": "Obstetrics & Gynecology",
+        "multiplier": 1.0,
+        "category": "womens_health",
+        "description": "Comprehensive care for women's reproductive health",
+        "typicalServices": ["prenatal_care", "delivery_services", "gynecologic_surgery", "wellness_exams"],
+        "regulatoryRequirements": ["obgyn_residency", "board_certification", "cme_50_hours", "hospital_privileges"]
+      },
+      "maternal_fetal_medicine": {
+        "name": "Maternal-Fetal Medicine",
+        "multiplier": 1.2,
+        "category": "womens_health",
+        "description": "High-risk pregnancy and fetal medicine care",
+        "typicalServices": ["high_risk_pregnancy", "fetal_diagnosis", "genetic_counseling", "maternal_critical_care"],
+        "regulatoryRequirements": ["mfm_fellowship", "board_certification", "cme_60_hours", "nicu_privileges"]
+      }
+    },
+    "mental_health": {
+      "psychiatry": {
+        "name": "Psychiatry",
+        "multiplier": 0.8,
+        "category": "mental_health",
+        "description": "Diagnosis and treatment of mental health disorders",
+        "typicalServices": ["medication_management", "psychotherapy", "crisis_intervention", "psychiatric_evaluation"],
+        "regulatoryRequirements": ["psychiatry_residency", "board_certification", "cme_40_hours", "dea_license"]
+      },
+      "psychology": {
+        "name": "Psychology",
+        "multiplier": 0.6,
+        "category": "mental_health",
+        "description": "Psychological assessment and therapy",
+        "typicalServices": ["psychotherapy", "psychological_testing", "counseling", "behavioral_therapy"],
+        "regulatoryRequirements": ["psychology_license", "doctorate_degree", "cme_30_hours", "supervision_requirements"]
+      }
+    },
+    "diagnostic": {
+      "radiology": {
+        "name": "Radiology",
+        "multiplier": 1.0,
+        "category": "diagnostic",
+        "description": "Medical imaging and diagnostic radiology",
+        "typicalServices": ["diagnostic_imaging", "interventional_radiology", "image_guided_procedures", "radiology_consultation"],
+        "regulatoryRequirements": ["radiology_residency", "board_certification", "cme_50_hours", "radiology_license"]
+      },
+      "pathology": {
+        "name": "Pathology",
+        "multiplier": 0.9,
+        "category": "diagnostic",
+        "description": "Laboratory diagnosis of disease through tissue and fluid analysis",
+        "typicalServices": ["diagnostic_pathology", "laboratory_testing", "autopsy_services", "pathology_consultation"],
+        "regulatoryRequirements": ["pathology_residency", "board_certification", "cme_40_hours", "laboratory_director_certification"]
+      }
+    },
+    "emergency": {
+      "emergency_medicine": {
+        "name": "Emergency Medicine",
+        "multiplier": 1.3,
+        "category": "emergency",
+        "description": "Acute care for emergency medical conditions",
+        "typicalServices": ["emergency_care", "trauma_management", "acute_medicine", "emergency_procedures"],
+        "regulatoryRequirements": ["emergency_medicine_residency", "board_certification", "cme_50_hours", "emergency_privileges"]
+      },
+      "critical_care_medicine": {
+        "name": "Critical Care Medicine",
+        "multiplier": 1.4,
+        "category": "emergency",
+        "description": "Intensive care for critically ill patients",
+        "typicalServices": ["critical_care", "icu_management", "ventilator_management", "life_support"],
+        "regulatoryRequirements": ["critical_care_fellowship", "board_certification", "cme_60_hours", "critical_care_certification"]
+      }
+    },
+    "anesthesiology": {
+      "anesthesiology": {
+        "name": "Anesthesiology",
+        "multiplier": 1.2,
+        "category": "anesthesiology",
+        "description": "Anesthesia administration and perioperative care",
+        "typicalServices": ["anesthesia_administration", "pain_management", "critical_care", "perioperative_medicine"],
+        "regulatoryRequirements": ["anesthesiology_residency", "board_certification", "cme_50_hours", "anesthesia_license"]
+      }
+    },
+    "rehabilitation": {
+      "physical_medicine_rehabilitation": {
+        "name": "Physical Medicine & Rehabilitation",
+        "multiplier": 0.9,
+        "category": "rehabilitation",
+        "description": "Restoration of function for patients with disabilities",
+        "typicalServices": ["rehabilitation_therapy", "physical_therapy", "occupational_therapy", "pain_management"],
+        "regulatoryRequirements": ["pmr_residency", "board_certification", "cme_40_hours", "rehabilitation_license"]
+      }
+    },
+    "oncology": {
+      "medical_oncology": {
+        "name": "Medical Oncology",
+        "multiplier": 1.2,
+        "category": "oncology",
+        "description": "Medical treatment of cancer",
+        "typicalServices": ["chemotherapy", "immunotherapy", "targeted_therapy", "supportive_care"],
+        "regulatoryRequirements": ["oncology_fellowship", "board_certification", "cme_60_hours", "oncology_certification"]
+      },
+      "radiation_oncology": {
+        "name": "Radiation Oncology",
+        "multiplier": 1.3,
+        "category": "oncology",
+        "description": "Radiation therapy for cancer treatment",
+        "typicalServices": ["radiation_therapy", "brachytherapy", "radiosurgery", "treatment_planning"],
+        "regulatoryRequirements": ["radiation_oncology_fellowship", "board_certification", "cme_60_hours", "radiation_license"]
+      }
+    },
+    "research": {
+      "medical_research": {
+        "name": "Medical Research",
+        "multiplier": 0.8,
+        "category": "research",
+        "description": "Clinical research and medical investigation",
+        "typicalServices": ["clinical_research", "data_analysis", "publication", "grant_management"],
+        "regulatoryRequirements": ["research_credentials", "irb_training", "cme_30_hours", "research_compliance"]
+      },
+      "academic_medical_center": {
+        "name": "Academic Medical Center",
+        "multiplier": 1.3,
+        "category": "research",
+        "description": "Academic institution combining research, education, and patient care",
+        "typicalServices": ["academic_research", "medical_education", "clinical_care", "grant_administration"],
+        "regulatoryRequirements": ["academic_credentials", "research_compliance", "cme_40_hours", "institutional_review"]
+      }
+    },
+    "corporate": {
+      "occupational_health": {
+        "name": "Occupational Health",
+        "multiplier": 0.8,
+        "category": "corporate",
+        "description": "Workplace health and safety programs",
+        "typicalServices": ["workplace_health", "safety_programs", "employee_health", "regulatory_compliance"],
+        "regulatoryRequirements": ["occupational_medicine_license", "board_certification", "cme_30_hours", "osha_compliance"]
+      }
+    },
+    "retail": {
+      "retail_clinic": {
+        "name": "Retail Clinic",
+        "multiplier": 0.6,
+        "category": "retail",
+        "description": "Retail-based medical services and urgent care",
+        "typicalServices": ["urgent_care", "retail_health", "convenience_care", "occupational_health"],
+        "regulatoryRequirements": ["medical_license", "cme_30_hours", "retail_health_license", "basic_facility_standards"]
+      }
+    },
+    "multi_specialty": {
+      "multi_specialty_group": {
+        "name": "Multi-Specialty Group",
+        "multiplier": 1.0,
+        "category": "multi_specialty",
+        "description": "Medical practice with multiple specialties",
+        "typicalServices": ["multi_specialty_care", "coordinated_care", "specialist_referrals", "comprehensive_services"],
+        "regulatoryRequirements": ["multiple_specialty_licenses", "board_certifications", "cme_50_hours", "group_practice_standards"]
+      }
+    }
+  },
+  "practiceTypes": {
+    "private_practice": {
+      "name": "Private Practice",
+      "multiplier": 1.0,
+      "description": "Independent medical practice",
+      "typicalSize": "1-10 providers",
+      "regulatoryRequirements": ["business_license", "medical_license", "malpractice_insurance", "hipaa_compliance"]
+    },
+    "hospital": {
+      "name": "Hospital",
+      "multiplier": 1.3,
+      "description": "Full-service hospital facility",
+      "typicalSize": "50+ providers",
+      "regulatoryRequirements": ["hospital_license", "accreditation", "quality_reporting", "emergency_services"]
+    },
+    "clinic": {
+      "name": "Clinic",
+      "multiplier": 0.9,
+      "description": "Outpatient medical facility",
+      "typicalSize": "5-20 providers",
+      "regulatoryRequirements": ["clinic_license", "medical_director", "quality_assurance", "patient_safety"]
+    },
+    "urgent_care": {
+      "name": "Urgent Care",
+      "multiplier": 1.2,
+      "description": "Urgent care and immediate medical services",
+      "typicalSize": "3-15 providers",
+      "regulatoryRequirements": ["urgent_care_license", "extended_hours", "radiology_services", "laboratory_services"]
+    },
+    "teaching_hospital": {
+      "name": "Teaching Hospital",
+      "multiplier": 1.4,
+      "description": "Academic medical center with teaching programs",
+      "typicalSize": "100+ providers",
+      "regulatoryRequirements": ["academic_accreditation", "teaching_programs", "research_facilities", "graduate_medical_education"]
+    }
+  },
+  "riskCategories": {
+    "low": {
+      "multiplierRange": "0.5-0.8",
+      "description": "Lower regulatory burden and standard requirements",
+      "examples": ["general_practice", "psychology", "retail_clinic"]
+    },
+    "medium": {
+      "multiplierRange": "0.9-1.1",
+      "description": "Standard regulatory requirements and moderate oversight",
+      "examples": ["internal_medicine", "family_medicine", "cardiology"]
+    },
+    "high": {
+      "multiplierRange": "1.2-1.4",
+      "description": "High regulatory burden and intensive oversight",
+      "examples": ["neurosurgery", "cardiothoracic_surgery", "teaching_hospital"]
+    }
+  },
+  "complianceRequirements": {
+    "basic": ["medical_license", "malpractice_insurance", "hipaa_training", "cme_30_hours"],
+    "intermediate": ["board_certification", "cme_50_hours", "quality_assurance", "risk_management"],
+    "advanced": ["fellowship_training", "cme_60_hours", "accreditation", "peer_review", "audit_compliance"],
+    "specialized": ["subspecialty_certification", "cme_80_hours", "research_participation", "teaching_credentials", "advanced_training"]
+  }
+}
