@@ -1,0 +1,69 @@
+{
+  "medicalBoard": {
+    "licenseRenewal": "biennial",
+    "cmeHours": 50,
+    "painManagementHours": 12,
+    "controlledSubstancesHours": 8,
+    "ethicsHours": 0,
+    "telemedicineRequired": true,
+    "licenseVerification": true,
+    "backgroundCheck": true,
+    "malpracticeInsurance": true,
+    "specialRequirements": [
+      "Comprehensive healthcare regulations",
+      "Enhanced privacy requirements",
+      "Controlled substance monitoring",
+      "Telemedicine compliance"
+    ]
+  },
+  "privacy": {
+    "hipaaCompliance": true,
+    "statePrivacyLaws": true,
+    "breachNotification": "72_hours",
+    "patientRights": true,
+    "dataRetention": "6_years",
+    "marketingRestrictions": true,
+    "socialMediaPolicy": true
+  },
+  "reporting": {
+    "incidentReporting": true,
+    "adverseEventReporting": true,
+    "prescriptionMonitoring": true,
+    "cmeReporting": true,
+    "licenseStatusReporting": true,
+    "telemedicineReporting": true
+  },
+  "inspections": {
+    "frequency": "biennial",
+    "unannounced": true,
+    "telemedicineInspection": true,
+    "documentationReview": true,
+    "facilityInspection": true,
+    "patientRecordReview": true
+  },
+  "penalties": {
+    "licenseViolation": "1000-10000",
+    "privacyViolation": "2500-25000",
+    "reportingViolation": "1000-10000",
+    "practiceViolation": "2000-50000",
+    "telemedicineViolation": "1000-25000",
+    "criminalPenalties": "felony_misdemeanor"
+  },
+  "specialRegulations": {
+    "comprehensiveHealthcare": {
+      "enabled": true,
+      "description": "Comprehensive healthcare regulations",
+      "requirements": [
+        "Enhanced patient safety standards",
+        "Quality improvement programs",
+        "Risk management protocols",
+        "Peer review requirements"
+      ]
+    }
+  },
+  "stateCode": "FL",
+  "stateName": "Florida",
+  "regulatoryBurden": 1.2,
+  "lastUpdated": "2024-02-24T00:00:00Z",
+  "version": "1.0.0"
+}

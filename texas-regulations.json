@@ -1,0 +1,83 @@
+{
+  "medicalBoard": {
+    "licenseRenewal": "biennial",
+    "cmeHours": 50,
+    "painManagementHours": 12,
+    "controlledSubstancesHours": 8,
+    "ethicsHours": 0,
+    "telemedicineRequired": false,
+    "licenseVerification": true,
+    "backgroundCheck": true,
+    "malpracticeInsurance": true,
+    "specialRequirements": [
+      "Medical Privacy Act compliance",
+      "Frontier medicine provisions",
+      "Rural healthcare considerations",
+      "Telemedicine expansion"
+    ]
+  },
+  "privacy": {
+    "hipaaCompliance": true,
+    "statePrivacyLaws": true,
+    "medicalPrivacyActCompliance": true,
+    "breachNotification": "72_hours",
+    "patientRights": true,
+    "dataRetention": "6_years",
+    "marketingRestrictions": false,
+    "socialMediaPolicy": false
+  },
+  "reporting": {
+    "incidentReporting": true,
+    "adverseEventReporting": true,
+    "prescriptionMonitoring": false,
+    "cmeReporting": true,
+    "licenseStatusReporting": true,
+    "ruralHealthReporting": true,
+    "telemedicineReporting": false
+  },
+  "inspections": {
+    "frequency": "biennial",
+    "unannounced": false,
+    "telemedicineInspection": false,
+    "documentationReview": true,
+    "facilityInspection": true,
+    "patientRecordReview": false,
+    "ruralHealthAudit": true
+  },
+  "penalties": {
+    "licenseViolation": "500-5000",
+    "privacyViolation": "1000-10000",
+    "medicalPrivacyViolation": "2000-20000",
+    "reportingViolation": "500-5000",
+    "practiceViolation": "1000-25000",
+    "ruralHealthViolation": "500-5000",
+    "criminalPenalties": "misdemeanor"
+  },
+  "specialRegulations": {
+    "medicalPrivacyAct": {
+      "enabled": true,
+      "description": "Texas Medical Privacy Act",
+      "requirements": [
+        "Patient consent requirements",
+        "Data protection standards",
+        "Privacy officer designation",
+        "Compliance training"
+      ]
+    },
+    "frontierMedicine": {
+      "enabled": true,
+      "description": "Frontier healthcare provisions",
+      "requirements": [
+        "Rural practice considerations",
+        "Telemedicine flexibility",
+        "Community health standards",
+        "Resource allocation guidelines"
+      ]
+    }
+  },
+  "stateCode": "TX",
+  "stateName": "Texas",
+  "regulatoryBurden": 1.2,
+  "lastUpdated": "2024-02-24T00:00:00Z",
+  "version": "1.0.0"
+}

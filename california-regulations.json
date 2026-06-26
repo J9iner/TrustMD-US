@@ -1,0 +1,103 @@
+{
+  "medicalBoard": {
+    "licenseRenewal": "biennial",
+    "cmeHours": 50,
+    "painManagementHours": 12,
+    "controlledSubstancesHours": 8,
+    "ethicsHours": 0,
+    "telemedicineRequired": true,
+    "licenseVerification": true,
+    "backgroundCheck": true,
+    "malpracticeInsurance": true,
+    "specialRequirements": [
+      "CMIA compliance",
+      "CURS requirements",
+      "Telemedicine mandates",
+      "Opioid prescribing limits"
+    ]
+  },
+  "privacy": {
+    "hipaaCompliance": true,
+    "statePrivacyLaws": true,
+    "cmiaCompliance": true,
+    "breachNotification": "72_hours",
+    "patientRights": true,
+    "dataRetention": "6_years",
+    "marketingRestrictions": true,
+    "socialMediaPolicy": true
+  },
+  "reporting": {
+    "incidentReporting": true,
+    "adverseEventReporting": true,
+    "prescriptionMonitoring": true,
+    "cmeReporting": true,
+    "licenseStatusReporting": true,
+    "telemedicineReporting": true,
+    "opioidReporting": true
+  },
+  "inspections": {
+    "frequency": "biennial",
+    "unannounced": true,
+    "telemedicineInspection": true,
+    "documentationReview": true,
+    "facilityInspection": true,
+    "patientRecordReview": true,
+    "telehealthAudit": true
+  },
+  "penalties": {
+    "licenseViolation": "1000-10000",
+    "privacyViolation": "2500-25000",
+    "cmiaViolation": "5000-50000",
+    "reportingViolation": "500-5000",
+    "practiceViolation": "1000-50000",
+    "telemedicineViolation": "1000-25000",
+    "opioidViolation": "10000-50000",
+    "criminalPenalties": "felony_misdemeanor"
+  },
+  "specialRegulations": {
+    "cmia": {
+      "enabled": true,
+      "description": "California Medical Information Privacy Act",
+      "requirements": [
+        "Patient consent for disclosure",
+        "Minimum necessary disclosure",
+        "Patient access rights",
+        "Business associate contracts"
+      ]
+    },
+    "curs": {
+      "enabled": true,
+      "description": "Controlled Substance Utilization Review",
+      "requirements": [
+        "Quarterly review of controlled substances",
+        "Prescription pattern analysis",
+        "Patient education requirements"
+      ]
+    },
+    "telemedicine": {
+      "enabled": true,
+      "description": "Telehealth regulations",
+      "requirements": [
+        "In-person examination requirement",
+        "Technology standards",
+        "Cross-state licensing",
+        "Informed consent requirements"
+      ]
+    },
+    "opioidLimits": {
+      "enabled": true,
+      "description": "Opioid prescribing restrictions",
+      "requirements": [
+        "Initial prescription limits",
+        "PDMP checking requirements",
+        "Patient education mandates",
+        "Alternative pain management"
+      ]
+    }
+  },
+  "stateCode": "CA",
+  "stateName": "California",
+  "regulatoryBurden": 1.4,
+  "lastUpdated": "2024-02-24T00:00:00Z",
+  "version": "1.0.0"
+}

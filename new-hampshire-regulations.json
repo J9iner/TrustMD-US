@@ -1,0 +1,64 @@
+{
+  "medicalBoard": {
+    "licenseRenewal": "biennial",
+    "cmeHours": 50,
+    "painManagementHours": 12,
+    "controlledSubstancesHours": 8,
+    "ethicsHours": 0,
+    "telemedicineRequired": false,
+    "licenseVerification": true,
+    "backgroundCheck": true,
+    "malpracticeInsurance": true,
+    "specialRequirements": [
+      "Standard medical board compliance",
+      "Basic CME requirements",
+      "Standard privacy requirements"
+    ]
+  },
+  "privacy": {
+    "hipaaCompliance": true,
+    "statePrivacyLaws": false,
+    "breachNotification": "72_hours",
+    "patientRights": true,
+    "dataRetention": "6_years",
+    "marketingRestrictions": false,
+    "socialMediaPolicy": false
+  },
+  "reporting": {
+    "incidentReporting": true,
+    "adverseEventReporting": true,
+    "prescriptionMonitoring": false,
+    "cmeReporting": true,
+    "licenseStatusReporting": true
+  },
+  "inspections": {
+    "frequency": "biennial",
+    "unannounced": false,
+    "telemedicineInspection": false,
+    "documentationReview": true,
+    "facilityInspection": true
+  },
+  "penalties": {
+    "licenseViolation": "500-5000",
+    "privacyViolation": "1000-10000",
+    "reportingViolation": "500-5000",
+    "practiceViolation": "1000-25000",
+    "criminalPenalties": "misdemeanor"
+  },
+  "specialRegulations": {
+    "standardCompliance": {
+      "enabled": true,
+      "description": "Standard compliance requirements",
+      "requirements": [
+        "Basic medical board compliance",
+        "Standard CME requirements",
+        "HIPAA compliance"
+      ]
+    }
+  },
+  "stateCode": "NH",
+  "stateName": "New Hampshire",
+  "regulatoryBurden": 1.0,
+  "lastUpdated": "2024-02-24T00:00:00Z",
+  "version": "1.0.0"
+}

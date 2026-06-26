@@ -1,0 +1,93 @@
+{
+  "medicalBoard": {
+    "licenseRenewal": "biennial",
+    "cmeHours": 50,
+    "painManagementHours": 12,
+    "controlledSubstancesHours:": 8,
+    "ethicsHours": 0,
+    "telemedicineRequired": false,
+    "licenseVerification": true,
+    "backgroundCheck": true,
+    "malpracticeInsurance": true,
+    "specialRequirements": [
+      "SHIELD Act compliance",
+      "Enhanced privacy laws",
+      "Infection control training",
+      "Enhanced PDMP requirements"
+    ]
+  },
+  "privacy": {
+    "hipaaCompliance": true,
+    "statePrivacyLaws": true,
+    "shieldActCompliance": true,
+    "breachNotification": "72_hours",
+    "patientRights": true,
+    "dataRetention": "6_years",
+    "marketingRestrictions": true,
+    "socialMediaPolicy": true
+  },
+  "reporting": {
+    "incidentReporting": true,
+    "adverseEventReporting": true,
+    "prescriptionMonitoring": true,
+    "cmeReporting": true,
+    "licenseStatusReporting": true,
+    "shieldReporting": true,
+    "infectionControlReporting": true
+  },
+  "inspections": {
+    "frequency": "biennial",
+    "unannounced": true,
+    "telemedicineInspection": false,
+    "documentationReview": true,
+    "facilityInspection": true,
+    "patientRecordReview": true,
+    "infectionControlAudit": true
+  },
+  "penalties": {
+    "licenseViolation": "1000-10000",
+    "privacyViolation": "5000-50000",
+    "shieldViolation": "10000-100000",
+    "reportingViolation": "1000-10000",
+    "practiceViolation": "2000-50000",
+    "infectionControlViolation": "5000-25000",
+    "criminalPenalties": "felony_misdemeanor"
+  },
+  "specialRegulations": {
+    "shieldAct": {
+      "enabled": true,
+      "description": "New York SHIELD Act",
+      "requirements": [
+        "Enhanced privacy notifications",
+        "Data breach reporting",
+        "Consumer access rights",
+        "Business associate agreements"
+      ]
+    },
+    "infectionControl": {
+      "enabled": true,
+      "description": "Infection control requirements",
+      "requirements": [
+        "Mandatory training",
+        "Quarterly reviews",
+        "Documentation standards",
+        "Patient safety protocols"
+      ]
+    },
+    "pdmp": {
+      "enabled": true,
+      "description": "Enhanced PDMP requirements",
+      "requirements": [
+        "Mandatory checking",
+        "Enhanced reporting",
+        "Pattern analysis",
+        "Patient education"
+      ]
+    }
+  },
+  "stateCode": "NY",
+  "stateName": "New York",
+  "regulatoryBurden": 1.3,
+  "lastUpdated": "2024-02-24T00:00:00Z",
+  "version": "1.0.0"
+}

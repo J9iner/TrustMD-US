@@ -1,0 +1,71 @@
+{
+  "medicalBoard": {
+    "licenseRenewal": "biennial",
+    "cmeHours": 50,
+    "painManagementHours": 12,
+    "controlledSubstancesHours": 8,
+    "ethicsHours": 0,
+    "telemedicineRequired": true,
+    "licenseVerification": true,
+    "backgroundCheck": true,
+    "malpracticeInsurance": true,
+    "specialRequirements": [
+      "Comprehensive privacy laws",
+      "Enhanced data protection",
+      "Patient privacy rights",
+      "Health information security"
+    ]
+  },
+  "privacy": {
+    "hipaaCompliance": true,
+    "statePrivacyLaws": true,
+    "comprehensivePrivacyCompliance": true,
+    "breachNotification": "72_hours",
+    "patientRights": true,
+    "dataRetention": "6_years",
+    "marketingRestrictions": true,
+    "socialMediaPolicy": true
+  },
+  "reporting": {
+    "incidentReporting": true,
+    "adverseEventReporting": true,
+    "prescriptionMonitoring": true,
+    "cmeReporting": true,
+    "licenseStatusReporting": true,
+    "privacyReporting": true
+  },
+  "inspections": {
+    "frequency": "biennial",
+    "unannounced": true,
+    "telemedicineInspection": true,
+    "documentationReview": true,
+    "facilityInspection": true,
+    "patientRecordReview": true,
+    "privacyAudit": true
+  },
+  "penalties": {
+    "licenseViolation": "1000-10000",
+    "privacyViolation": "5000-50000",
+    "comprehensivePrivacyViolation": "10000-100000",
+    "reportingViolation": "1000-10000",
+    "practiceViolation": "2000-50000",
+    "criminalPenalties": "felony_misdemeanor"
+  },
+  "specialRegulations": {
+    "comprehensivePrivacy": {
+      "enabled": true,
+      "description": "Comprehensive privacy laws",
+      "requirements": [
+        "Enhanced patient privacy rights",
+        "Data protection standards",
+        "Privacy officer designation",
+        "Compliance training programs"
+      ]
+    }
+  },
+  "stateCode": "MA",
+  "stateName": "Massachusetts",
+  "regulatoryBurden": 1.3,
+  "lastUpdated": "2024-02-24T00:00:00Z",
+  "version": "1.0.0"
+}
