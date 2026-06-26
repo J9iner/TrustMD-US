@@ -1,565 +1,208 @@
-// TrustMD State Management Integration
-// Connects API services with state management (works with any state management library)
+// TrustMD State Management
+// Centralized state management with validation and error handling
 
-class StateManager {
-    constructor(config = {}) {
-        this.state = {};
-        this.listeners = new Map();
-        this.middlewares = [];
-        this.persistence = config.persistence || null;
-        this.debug = config.debug || false;
+class TrustMDState {
+    constructor() {
+        this.state = new Proxy({}, {
+            set: (target, key, value) => {
+                this.validate(key, value);
+                target[key] = value;
+                return true;
+            },
+            get: (target, key) => {
+                return target[key];
+            }
+        });
         
-        // Initialize state
-        this.initializeState();
-        
-        // Setup persistence
-        if (this.persistence) {
-            this.setupPersistence();
-        }
+        // Initialize with default values
+        this.initializeDefaults();
     }
     
-    // Initialize default state structure
-    initializeState() {
-        this.state = {
-            // Authentication state
-            auth: {
-                isAuthenticated: false,
-                user: null,
-                tenant: null,
-                loading: false,
-                error: null
-            },
-            
-            // Compliance state
-            compliance: {
-                templates: [],
-                reports: [],
-                alerts: [],
-                requirements: [],
-                evidence: [],
-                loading: false,
-                error: null
-            },
-            
-            // Reports state
-            reports: {
-                activeReports: [],
-                completedReports: [],
-                scheduledReports: [],
-                templates: [],
-                loading: false,
-                error: null
-            },
-            
-            // Admin state
-            admin: {
-                users: [],
-                tenants: [],
-                roles: [],
-                auditLogs: [],
-                securityAlerts: [],
-                systemStatus: null,
-                loading: false,
-                error: null
-            },
-            
-            // UI state
-            ui: {
-                sidebarOpen: true,
-                theme: 'light',
-                notifications: [],
-                modals: [],
-                loading: {},
-                errors: {}
-            },
-            
-            // Cache state
-            cache: {
-                templates: new Map(),
-                reports: new Map(),
-                users: new Map(),
-                metadata: {
-                    lastUpdated: null,
-                    version: '1.0.0'
-                }
-            }
+    initializeDefaults() {
+        this.state.notifications = [];
+        this.state.documents = [];
+        this.state.complianceData = {
+            score: 92,
+            pendingTasks: 5,
+            nextAudit: 45,
+            auditRiskLevel: 'Medium',
+            auditProbability: 32
         };
+        this.state.currentUser = null;
+        this.state.supabaseClient = null;
+        this.state.currentTenantId = null;
+        this.state.userTier = 'professional';
+        this.state.riskEngine = null;
+        this.state.evidenceVault = null;
+        this.state.crossReferenceValidator = null;
+        this.state.apiServer = null;
+        this.state.realTimeSyncManager = null;
     }
     
-    // Setup persistence
-    setupPersistence() {
-        // Load from persistence
-        if (this.persistence && typeof this.persistence.getItem === 'function') {
-            try {
-                const persistedState = this.persistence.getItem('trustmd_state');
-                if (persistedState) {
-                    this.state = { ...this.state, ...JSON.parse(persistedState) };
-                }
-            } catch (error) {
-                console.warn('Failed to load persisted state:', error);
+    validate(key, value) {
+        switch (key) {
+            case 'notifications':
+                this.validateNotifications(value);
+                break;
+            case 'documents':
+                this.validateDocuments(value);
+                break;
+            case 'complianceData':
+                this.validateComplianceData(value);
+                break;
+            case 'currentUser':
+                this.validateCurrentUser(value);
+                break;
+            case 'currentTenantId':
+                this.validateTenantId(value);
+                break;
+            case 'userTier':
+                this.validateUserTier(value);
+                break;
+            default:
+                // Allow other properties without validation for now
+                break;
+        }
+    }
+    
+    validateNotifications(notifications) {
+        if (!Array.isArray(notifications)) {
+            throw new Error('Notifications must be an array');
+        }
+        
+        notifications.forEach((notification, index) => {
+            if (!notification || typeof notification !== 'object') {
+                throw new Error(`Notification at index ${index} must be an object`);
             }
-        }
-        
-        // Auto-save state changes
-        this.addMiddleware((state, action) => {
-            if (this.persistence && typeof this.persistence.setItem === 'function') {
-                try {
-                    this.persistence.setItem('trustmd_state', JSON.stringify(state));
-                } catch (error) {
-                    console.warn('Failed to persist state:', error);
-                }
-            }
-            return state;
-        });
-    }
-    
-    // Get state
-    getState(path = null) {
-        if (!path) {
-            return this.state;
-        }
-        
-        return this.getNestedValue(this.state, path);
-    }
-    
-    // Get nested value from state
-    getNestedValue(obj, path) {
-        return path.split('.').reduce((current, key) => {
-            return current && current[key] !== undefined ? current[key] : null;
-        }, obj);
-    }
-    
-    // Set state
-    setState(path, value, action = null) {
-        const newState = { ...this.state };
-        this.setNestedValue(newState, path, value);
-        
-        const actionData = {
-            type: action || 'SET_STATE',
-            payload: { path, value },
-            timestamp: new Date().toISOString()
-        };
-        
-        // Apply middlewares
-        let finalState = newState;
-        for (const middleware of this.middlewares) {
-            finalState = middleware(finalState, actionData) || finalState;
-        }
-        
-        const prevState = this.state;
-        this.state = finalState;
-        
-        // Notify listeners
-        this.notifyListeners(path, value, prevState, actionData);
-        
-        if (this.debug) {
-            console.log('State updated:', { path, value, action: actionData.type });
-        }
-    }
-    
-    // Set nested value in state
-    setNestedValue(obj, path, value) {
-        const keys = path.split('.');
-        const lastKey = keys.pop();
-        const target = keys.reduce((current, key) => {
-            if (!current[key] || typeof current[key] !== 'object') {
-                current[key] = {};
-            }
-            return current[key];
-        }, obj);
-        
-        target[lastKey] = value;
-    }
-    
-    // Update state (merge for objects)
-    updateState(path, updates, action = null) {
-        const current = this.getState(path) || {};
-        const updated = typeof current === 'object' ? 
-            { ...current, ...updates } : updates;
-        
-        this.setState(path, updated, action);
-    }
-    
-    // Add state listener
-    addListener(path, callback) {
-        if (!this.listeners.has(path)) {
-            this.listeners.set(path, new Set());
-        }
-        
-        this.listeners.get(path).add(callback);
-        
-        // Return unsubscribe function
-        return () => {
-            this.listeners.get(path).delete(callback);
-            if (this.listeners.get(path).size === 0) {
-                this.listeners.delete(path);
-            }
-        };
-    }
-    
-    // Notify listeners
-    notifyListeners(path, value, prevState, action) {
-        // Notify exact path listeners
-        if (this.listeners.has(path)) {
-            this.listeners.get(path).forEach(callback => {
-                try {
-                    callback(value, prevState, action);
-                } catch (error) {
-                    console.error('State listener error:', error);
-                }
-            });
-        }
-        
-        // Notify parent path listeners
-        const pathParts = path.split('.');
-        for (let i = pathParts.length - 1; i > 0; i--) {
-            const parentPath = pathParts.slice(0, i).join('.');
-            if (this.listeners.has(parentPath)) {
-                this.listeners.get(parentPath).forEach(callback => {
-                    try {
-                        callback(this.getState(parentPath), prevState, action);
-                    } catch (error) {
-                        console.error('State listener error:', error);
-                    }
-                });
-            }
-        }
-    }
-    
-    // Add middleware
-    addMiddleware(middleware) {
-        this.middlewares.push(middleware);
-    }
-    
-    // Reset state
-    resetState(path = null) {
-        if (path) {
-            const defaultState = this.getNestedValue(this.createDefaultState(), path);
-            this.setState(path, defaultState, 'RESET_STATE');
-        } else {
-            this.initializeState();
-            this.notifyListeners('*', this.state, null, { type: 'RESET_ALL_STATE' });
-        }
-    }
-    
-    // Create default state (for reset)
-    createDefaultState() {
-        const tempManager = new StateManager({ debug: false });
-        return tempManager.state;
-    }
-}
-
-class APIStateIntegration {
-    constructor(stateManager, apiClient, authService) {
-        this.stateManager = stateManager;
-        this.apiClient = apiClient;
-        this.authService = authService;
-        
-        this.setupIntegration();
-    }
-    
-    // Setup integration between API and state
-    setupIntegration() {
-        // Authentication integration
-        this.setupAuthIntegration();
-        
-        // API error handling
-        this.setupErrorHandling();
-        
-        // Loading state management
-        this.setupLoadingStates();
-        
-        // Cache integration
-        this.setupCacheIntegration();
-    }
-    
-    // Setup authentication integration
-    setupAuthIntegration() {
-        // Listen to auth service events
-        this.authService.addEventListener('login', (data) => {
-            this.stateManager.setState('auth', {
-                isAuthenticated: true,
-                user: data.user,
-                tenant: data.tenant || null,
-                loading: false,
-                error: null
-            }, 'AUTH_LOGIN');
-        });
-        
-        this.authService.addEventListener('logout', () => {
-            this.stateManager.setState('auth', {
-                isAuthenticated: false,
-                user: null,
-                tenant: null,
-                loading: false,
-                error: null
-            }, 'AUTH_LOGOUT');
-        });
-        
-        this.authService.addEventListener('session-expired', () => {
-            this.stateManager.updateState('auth', {
-                isAuthenticated: false,
-                error: 'Session expired. Please log in again.'
-            }, 'AUTH_SESSION_EXPIRED');
-        });
-        
-        this.authService.addEventListener('user-updated', (user) => {
-            this.stateManager.updateState('auth', { user }, 'AUTH_USER_UPDATED');
-        });
-    }
-    
-    // Setup error handling
-    setupErrorHandling() {
-        // Global API error handler
-        this.apiClient.addEventListener('error', (error) => {
-            const errorKey = `api_${Date.now()}`;
-            this.stateManager.setNestedValue(this.stateManager.state, `ui.errors.${errorKey}`, {
-                error,
-                timestamp: new Date().toISOString()
-            });
             
-            // Clean up old errors (keep only last 10)
-            const errors = this.stateManager.getState('ui.errors') || {};
-            const errorKeys = Object.keys(errors);
-            if (errorKeys.length > 10) {
-                const keysToRemove = errorKeys.slice(0, errorKeys.length - 10);
-                keysToRemove.forEach(key => {
-                    delete errors[key];
-                });
-                this.stateManager.setState('ui.errors', errors);
+            if (!notification.id) {
+                throw new Error(`Notification at index ${index} must have an id`);
             }
         });
     }
     
-    // Setup loading states
-    setupLoadingStates() {
-        // HTTP client interceptors for loading states
-        this.apiClient.httpClient.addRequestInterceptor((request) => {
-            const loadingKey = this.getLoadingKey(request.url, request.method);
-            this.stateManager.setNestedValue(
-                this.stateManager.state, 
-                `ui.loading.${loadingKey}`, 
-                true
-            );
-            return request;
-        });
+    validateDocuments(documents) {
+        if (!Array.isArray(documents)) {
+            throw new Error('Documents must be an array');
+        }
         
-        this.apiClient.httpClient.addResponseInterceptor((response) => {
-            const loadingKey = this.getLoadingKey(response.url, 'GET'); // Approximate
-            this.stateManager.setNestedValue(
-                this.stateManager.state, 
-                `ui.loading.${loadingKey}`, 
-                false
-            );
-            return response;
-        });
-    }
-    
-    // Get loading key for request
-    getLoadingKey(url, method) {
-        // Extract a meaningful key from URL
-        const pathParts = url.split('/').filter(part => part && !part.includes('http'));
-        const key = pathParts.join('_') || 'api';
-        return `${method.toLowerCase()}_${key}`;
-    }
-    
-    // Setup cache integration
-    setupCacheIntegration() {
-        // Sync API cache with state cache
-        this.apiClient.addEventListener('response', (response) => {
-            // Cache certain responses in state
-            if (response.config?.cache !== false) {
-                const cacheKey = this.getCacheKey(response.config?.url || '');
-                if (cacheKey) {
-                    this.stateManager.setNestedValue(
-                        this.stateManager.state,
-                        `cache.${cacheKey}`,
-                        {
-                            data: response.data,
-                            timestamp: Date.now(),
-                            url: response.config?.url
-                        }
-                    );
-                }
+        documents.forEach((document, index) => {
+            if (!document || typeof document !== 'object') {
+                throw new Error(`Document at index ${index} must be an object`);
+            }
+            
+            if (!document.id) {
+                throw new Error(`Document at index ${index} must have an id`);
             }
         });
     }
     
-    // Get cache key for URL
-    getCacheKey(url) {
-        if (url.includes('/templates')) return 'templates';
-        if (url.includes('/reports')) return 'reports';
-        if (url.includes('/users')) return 'users';
-        if (url.includes('/tenants')) return 'tenants';
-        if (url.includes('/roles')) return 'roles';
-        return null;
-    }
-}
-
-class StateActions {
-    constructor(stateManager, apiClient, authService) {
-        this.stateManager = stateManager;
-        this.apiClient = apiClient;
-        this.authService = authService;
-    }
-    
-    // Authentication actions
-    async login(credentials) {
-        this.stateManager.updateState('auth', { loading: true, error: null }, 'LOGIN_START');
+    validateComplianceData(data) {
+        if (!data || typeof data !== 'object') {
+            throw new Error('Compliance data must be an object');
+        }
         
-        try {
-            await this.authService.login(credentials);
-        } catch (error) {
-            this.stateManager.updateState('auth', { 
-                loading: false, 
-                error: error.message 
-            }, 'LOGIN_ERROR');
-            throw error;
+        if (typeof data.score !== 'number' || data.score < 0 || data.score > 100) {
+            throw new Error('Compliance score must be a number between 0 and 100');
+        }
+        
+        if (typeof data.pendingTasks !== 'number' || data.pendingTasks < 0) {
+            throw new Error('Pending tasks must be a non-negative number');
+        }
+        
+        if (typeof data.nextAudit !== 'number' || data.nextAudit < 0) {
+            throw new Error('Next audit must be a non-negative number');
+        }
+        
+        if (!['Low', 'Medium', 'High'].includes(data.auditRiskLevel)) {
+            throw new Error('Audit risk level must be Low, Medium, or High');
+        }
+        
+        if (typeof data.auditProbability !== 'number' || data.auditProbability < 0 || data.auditProbability > 100) {
+            throw new Error('Audit probability must be a number between 0 and 100');
         }
     }
     
-    async logout() {
-        this.stateManager.updateState('auth', { loading: true }, 'LOGOUT_START');
+    validateCurrentUser(user) {
+        if (user !== null && (!user || typeof user !== 'object')) {
+            throw new Error('Current user must be null or an object');
+        }
         
-        try {
-            await this.authService.logout();
-        } catch (error) {
-            console.error('Logout error:', error);
-            // Still clear local state even if server logout fails
-            this.authService.clearAuth();
+        if (user && !user.id) {
+            throw new Error('Current user must have an id');
         }
     }
     
-    // Compliance actions
-    async loadComplianceTemplates(filters = {}) {
-        this.stateManager.updateState('compliance', { loading: true, error: null }, 'LOAD_TEMPLATES_START');
-        
-        try {
-            const response = await this.apiClient.getComplianceTemplates(filters);
-            this.stateManager.updateState('compliance', {
-                templates: response.data,
-                loading: false
-            }, 'LOAD_TEMPLATES_SUCCESS');
-            return response;
-        } catch (error) {
-            this.stateManager.updateState('compliance', {
-                loading: false,
-                error: error.message
-            }, 'LOAD_TEMPLATES_ERROR');
-            throw error;
+    validateTenantId(tenantId) {
+        if (tenantId !== null && (typeof tenantId !== 'string' || tenantId.trim() === '')) {
+            throw new Error('Tenant ID must be null or a non-empty string');
         }
     }
     
-    async generateComplianceReport(templateId, parameters) {
-        this.stateManager.updateState('compliance', { loading: true, error: null }, 'GENERATE_REPORT_START');
-        
+    validateUserTier(tier) {
+        if (!['professional', 'basic', 'enterprise'].includes(tier)) {
+            throw new Error('User tier must be professional, basic, or enterprise');
+        }
+    }
+    
+    // Getter methods for backward compatibility
+    get(key) {
+        return this.state[key];
+    }
+    
+    // Setter methods with validation (synchronous for backward compatibility)
+    set(key, value) {
+        this.validate(key, value);
+        this.state[key] = value;
+    }
+    
+    // Async setter methods with validation and error handling
+    async setAsync(key, value) {
         try {
-            const response = await this.apiClient.generateComplianceReport(templateId, parameters);
+            // Validate before setting
+            this.validate(key, value);
             
-            // Add to active reports
-            const activeReports = this.stateManager.getState('compliance.reports') || [];
-            this.stateManager.setState('compliance.reports', [
-                ...activeReports,
-                response.data
-            ], 'ADD_ACTIVE_REPORT');
+            // Simulate async operation (could be database save, API call, etc.)
+            await new Promise(resolve => setTimeout(resolve, 0));
             
-            this.stateManager.updateState('compliance', { loading: false }, 'GENERATE_REPORT_SUCCESS');
-            return response;
+            this.state[key] = value;
+            return { success: true, key, value };
         } catch (error) {
-            this.stateManager.updateState('compliance', {
-                loading: false,
-                error: error.message
-            }, 'GENERATE_REPORT_ERROR');
-            throw error;
+            return { success: false, error: error.message, key };
         }
     }
     
-    // Admin actions
-    async loadUsers(filters = {}) {
-        this.stateManager.updateState('admin', { loading: true, error: null }, 'LOAD_USERS_START');
+    // Batch async operations for better performance
+    async setBatch(updates) {
+        const results = [];
         
-        try {
-            const response = await this.apiClient.getUsers(filters);
-            this.stateManager.updateState('admin', {
-                users: response.data,
-                loading: false
-            }, 'LOAD_USERS_SUCCESS');
-            return response;
-        } catch (error) {
-            this.stateManager.updateState('admin', {
-                loading: false,
-                error: error.message
-            }, 'LOAD_USERS_ERROR');
-            throw error;
+        for (const [key, value] of Object.entries(updates)) {
+            const result = await this.setAsync(key, value);
+            results.push(result);
+            
+            // If any operation fails, we can choose to continue or stop
+            if (!result.success) {
+                console.warn(`Failed to set ${key}:`, result.error);
+            }
         }
-    }
-    
-    async createUser(userData) {
-        this.stateManager.updateState('admin', { loading: true, error: null }, 'CREATE_USER_START');
         
-        try {
-            const response = await this.apiClient.createUser(userData);
-            
-            // Add to users list
-            const users = this.stateManager.getState('admin.users') || [];
-            this.stateManager.setState('admin.users', [...users, response.data], 'ADD_USER');
-            
-            this.stateManager.updateState('admin', { loading: false }, 'CREATE_USER_SUCCESS');
-            return response;
-        } catch (error) {
-            this.stateManager.updateState('admin', {
-                loading: false,
-                error: error.message
-            }, 'CREATE_USER_ERROR');
-            throw error;
-        }
+        return results;
     }
     
-    // UI actions
-    setSidebarOpen(open) {
-        this.stateManager.setState('ui.sidebarOpen', open, 'SET_SIDEBAR_OPEN');
+    // Method to get entire state (for debugging)
+    getState() {
+        return { ...this.state };
     }
     
-    setTheme(theme) {
-        this.stateManager.setState('ui.theme', theme, 'SET_THEME');
-    }
-    
-    addNotification(notification) {
-        const notifications = this.stateManager.getState('ui.notifications') || [];
-        this.stateManager.setState('ui.notifications', [
-            ...notifications,
-            { ...notification, id: Date.now().toString() }
-        ], 'ADD_NOTIFICATION');
-    }
-    
-    removeNotification(notificationId) {
-        const notifications = this.stateManager.getState('ui.notifications') || [];
-        this.stateManager.setState('ui.notifications', 
-            notifications.filter(n => n.id !== notificationId),
-            'REMOVE_NOTIFICATION'
-        );
-    }
-    
-    clearError(errorKey) {
-        const errors = this.stateManager.getState('ui.errors') || {};
-        delete errors[errorKey];
-        this.stateManager.setState('ui.errors', errors, 'CLEAR_ERROR');
-    }
-    
-    clearAllErrors() {
-        this.stateManager.setState('ui.errors', {}, 'CLEAR_ALL_ERRORS');
+    // Method to reset state
+    reset() {
+        this.initializeDefaults();
     }
 }
 
 // Export for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        StateManager,
-        APIStateIntegration,
-        StateActions
-    };
+    module.exports = TrustMDState;
 } else {
-    window.StateManager = StateManager;
-    window.APIStateIntegration = APIStateIntegration;
-    window.StateActions = StateActions;
+    window.TrustMDState = TrustMDState;
 }
