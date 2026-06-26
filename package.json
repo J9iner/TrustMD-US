@@ -1,0 +1,87 @@
+{
+  "name": "trustmd-eu",
+  "version": "1.0.0",
+  "description": "TrustMD EU - Medical Compliance Logbook for European healthcare professionals",
+  "main": "src/backend/index.js",
+  "scripts": {
+    "start": "node src/backend/index.js",
+    "dev": "nodemon src/backend/index.js",
+    "api": "node src/backend/index.js",
+    "test": "jest",
+    "test:oauth": "node scripts/test-oauth.js",
+    "test:payments": "node scripts/test-payments.js",
+    "test:emails": "node scripts/test-emails.js",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/backend/",
+    "lint:fix": "eslint src/backend/ --fix",
+    "migrate": "node scripts/migrate.js",
+    "seed": "node scripts/seed.js"
+  },
+  "keywords": [
+    "healthcare",
+    "compliance",
+    "gdpr",
+    "eu-medical",
+    "irish-medical-council",
+    "medical",
+    "regulatory",
+    "audit",
+    "risk-management",
+    "eu-compliance"
+  ],
+  "author": "TrustMD Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "joi": "^17.11.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.7",
+    "uuid": "^9.0.1",
+    "crypto-js": "^4.2.0",
+    "moment": "^2.29.4",
+    "lodash": "^4.17.21",
+    "dotenv": "^16.3.1",
+    "morgan": "^1.10.0",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-azure-ad": "^4.3.5",
+    "express-session": "^1.17.3",
+    "stripe": "^14.9.0",
+    "stripe-cli": "^0.1.0",
+    "resend": "^3.2.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.1",
+    "supertest": "^6.3.3",
+    "nodemon": "^2.0.20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trustmd/trustmd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/trustmd/trustmd/issues"
+  },
+  "homepage": "https://trustmd.live",
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/backend/**/*.js",
+      "!src/backend/**/*.test.js"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "lcov", "html"]
+  }
+}
