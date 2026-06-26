@@ -1,0 +1,65 @@
+{
+  "medicalBoard": {
+    "licenseRenewal": "biennial",
+    "cmeHours": 50,
+    "painManagementHours": 12,
+    "controlledSubstancesHours": 8,
+    "ethicsHours": 0,
+    "telemedicineRequired": false,
+    "licenseVerification": true,
+    "backgroundCheck": true,
+    "malpracticeInsurance": true,
+    "specialRequirements": [
+      "Frontier healthcare provisions",
+      "Rural healthcare considerations",
+      "Basic compliance requirements",
+      "Minimal regulatory burden"
+    ]
+  },
+  "privacy": {
+    "hipaaCompliance": true,
+    "statePrivacyLaws": false,
+    "breachNotification": "72_hours",
+    "patientRights": true,
+    "dataRetention": "6_years",
+    "marketingRestrictions": false,
+    "socialMediaPolicy": false
+  },
+  "reporting": {
+    "incidentReporting": true,
+    "adverseEventReporting": true,
+    "prescriptionMonitoring": false,
+    "cmeReporting": true,
+    "licenseStatusReporting": true
+  },
+  "inspections": {
+    "frequency": "biennial",
+    "unannounced": false,
+    "telemedicineInspection": false,
+    "documentationReview": true,
+    "facilityInspection": false
+  },
+  "penalties": {
+    "licenseViolation": "500-2500",
+    "privacyViolation": "1000-5000",
+    "reportingViolation": "500-2500",
+    "practiceViolation": "1000-10000",
+    "criminalPenalties": "misdemeanor"
+  },
+  "specialRegulations": {
+    "frontierHealthcare": {
+      "enabled": true,
+      "description": "Frontier healthcare provisions",
+      "requirements": [
+        "Rural practice flexibility",
+        "Minimal documentation requirements",
+        "Community health standards"
+      ]
+    }
+  },
+  "stateCode": "WY",
+  "stateName": "Wyoming",
+  "regulatoryBurden": 0.0,
+  "lastUpdated": "2024-02-24T00:00:00Z",
+  "version": "1.0.0"
+}
