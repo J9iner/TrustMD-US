@@ -1,7 +1,7 @@
 {
-  "name": "trustmd-eu",
-  "version": "1.0.0",
-  "description": "TrustMD EU - Medical Compliance Logbook for European healthcare professionals",
+  "name": "trustmd",
+  "version": "2.0.0",
+  "description": "TrustMD - Medical Compliance Logbook for healthcare professionals",
   "main": "src/backend/index.js",
   "scripts": {
     "start": "node src/backend/index.js",
@@ -9,6 +9,7 @@
     "api": "node src/backend/index.js",
     "test": "jest",
     "test:oauth": "node scripts/test-oauth.js",
+    "test:apple": "node scripts/test-apple-oauth.js",
     "test:payments": "node scripts/test-payments.js",
     "test:emails": "node scripts/test-emails.js",
     "test:watch": "jest --watch",
@@ -21,14 +22,13 @@
   "keywords": [
     "healthcare",
     "compliance",
-    "gdpr",
-    "eu-medical",
-    "irish-medical-council",
+    "hipaa",
+    "osha",
     "medical",
     "regulatory",
     "audit",
     "risk-management",
-    "eu-compliance"
+    "state-compliance"
   ],
   "author": "TrustMD Team",
   "license": "MIT",
@@ -55,6 +55,7 @@
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-azure-ad": "^4.3.5",
+    "passport-apple": "^2.0.0",
     "express-session": "^1.17.3",
     "stripe": "^14.9.0",
     "stripe-cli": "^0.1.0",
